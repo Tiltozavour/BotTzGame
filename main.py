@@ -18,6 +18,8 @@ import discord
 from discord.ext import commands
 from discord.ui import Button, View
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
+import sys
+from pathlib import Path
 
 # Загрузка конфига
 load_dotenv()
@@ -26,6 +28,8 @@ TOKEN = os.getenv('DISCORD_BOT_TOKEN')
 intents = discord.Intents.default()
 intents.message_content = True
 bot = commands.Bot(command_prefix='!', intents=intents)
+
+sys.path.append(str(Path(__file__).parent))
 
 # Загрузка модулей (cogs)
 async def load_cogs():
@@ -46,6 +50,9 @@ async def auto_update():
     from cogs.games import update_steam_games
     await update_steam_games()
     print("Автообновление выполнено")
+
+
+
 
 keep_alive()
 bot.run(TOKEN)
