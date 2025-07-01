@@ -44,6 +44,7 @@ async def reroll_callback(self, interaction, button):
                 view=None
             )
 
+
 # Стили сообщений
 RESPONSES = {
     "suggestion": [
@@ -55,32 +56,6 @@ RESPONSES = {
         "❌ Нет доступных игр с текущими фильтрами"
     ]
 }
-
-def create_game_embed(game_data):
-    if not game_data:
-        return discord.Embed(
-            title="Ошибка",
-            description=random.choice(RESPONSES["error"]),
-            color=discord.Color.red()
-        )
-
-    embed = discord.Embed(
-        title=random.choice(RESPONSES["suggestion"]).format(game=game_data["name"]),
-        color=discord.Color.blue()
-    )
-
-    if game_data.get("url"):
-        embed.url = game_data["url"]
-
-    if game_data.get("tags"):
-        embed.add_field(
-            name="Теги",
-            value=", ".join(game_data["tags"][:5]),
-            inline=False
-        )
-
-    embed.set_footer(text="Используйте кнопки ниже")
-    return embed
 
 
 
