@@ -1,0 +1,1 @@
+from .steam_parser import fetch_steam_games
