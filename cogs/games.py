@@ -7,6 +7,10 @@ import os
 from utils.steam_parser import fetch_steam_games
 from utils.embeds import create_game_embed
 
+
+async def setup(bot):
+    await bot.add_cog(GamesCog(bot))
+
 class GameView(View):
   def __init__(self, game_data):
         super().__init__(timeout=120)
@@ -79,6 +83,7 @@ def create_game_embed(game_data):
     return embed
 
 
+
 class GamesCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -96,7 +101,6 @@ class GamesCog(commands.Cog):
     def get_random_game(self):
         games = load_games()
         return random.choice(games) if games else None
-    
 
 
 def load_games():
@@ -148,6 +152,4 @@ async def force_update(self, ctx):
         games = await fetch_steam_games(self.BANNED_TAGS)
     
         await ctx.send(f"✅ Обновлено {len(games)} игр")
-
-async def setup(bot):
-    await bot.add_cog(GamesCog(bot))
+    
